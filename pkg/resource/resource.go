@@ -92,6 +92,7 @@ func newPodSpec(app *application.App) v1.PodSpec {
 
 //newPodTemplateSpec create k8s's PodTemplateSpec
 func newPodTemplateSpec(app *application.App) *v1.PodTemplateSpec {
+
 	return &v1.PodTemplateSpec{
 		ObjectMeta: newOjectMeta(app),
 		Spec:       newPodSpec(app),
@@ -208,6 +209,7 @@ func CreateResource(param interface{}) error {
 		log.Noticef("replication [%v] is created]", rc.Name)
 		return nil
 	}
+	client.K8sClient.CoreV1Client.Nodes().List()
 	return nil
 }
 
