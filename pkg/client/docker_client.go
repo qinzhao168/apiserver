@@ -17,27 +17,24 @@ package client
 import (
 	"apiserver/pkg/configz"
 	"apiserver/pkg/util/log"
-
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
+	"github.com/docker/docker/client"
+	"net/http"
 )
 
 var (
-	K8sClient *kubernetes.Clientset
-	err       error
+	DockerClient *client.Client
+	err_docker      error
 )
 
 //init create client of k8s's apiserver
 func init() {
-	// uses the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", configz.GetString("apiserver", "k8s-config", "./config"))
-	if err != nil {
-		log.Fatalf("init k8s config err: %v", err)
-	}
-	// creates the clientset
-	K8sClient, err = kubernetes.NewForConfig(config)
-	if err != nil {
-		log.Fatalf("init k8s client err: %v", err)
-	}
 
+	var http_client *http.Client
+	dockerHost:=configz.GetString("docker","dockerHost","127.0.0.1:5555")
+	dockerVersion:=configz.GetString("docker","dockerVersion","1.12.3")
+	httpHeader:=make(map[string]string)
+	DockerClient,err_docker=client.NewClient(dockerHost,dockerVersion,http_client,httpHeader)
+	if err_docker!=nil{
+		log.Fatalf("init docker client err: %v", err_docker)
+	}
 }

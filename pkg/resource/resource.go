@@ -211,7 +211,6 @@ func CreateResource(param interface{}) error {
 		log.Noticef("replication [%v] is created]", rc.Name)
 		return nil
 	}
-	client.K8sClient.CoreV1Client.Nodes().List()
 	return nil
 }
 

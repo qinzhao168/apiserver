@@ -21,12 +21,7 @@ type Node struct {
 }
 
 func (node *Node) String() string {
-	nodeStr, err := jsonx.ToJson(node)
-	if err != nil {
-		log.Errorf("node to string err :%s", err.Error())
-		return ""
-	}
-	return nodeStr
+	return jsonx.ToJson(node)
 }
 
 func (node *Node) Insert() error {

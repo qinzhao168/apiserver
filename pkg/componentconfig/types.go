@@ -6,3 +6,10 @@ type ApiserverConfig struct {
 	RpcAddr  string
 	RpcPort  int
 }
+
+type DockerBuildConfig struct {
+	HttpAddr string
+	HttpPort int
+	RpcAddr  string
+	RpcPort  int
+}
